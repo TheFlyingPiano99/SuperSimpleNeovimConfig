@@ -63,7 +63,7 @@ require("lazy").setup({
 
                 require'nvim-treesitter.configs'.setup{
                     ensure_installed = {
-                        "c", "cpp", "python", "lua", "vim", "vimdoc", "javascript", "html",
+                        "c", "cpp", "python", "rust", "lua", "vim", "vimdoc", "javascript", "html",
                         "css", "markdown", "json", "xml", "yaml", "toml", "latex"
                     },
                     highlight = {enable=true}
@@ -91,6 +91,14 @@ require("lazy").setup({
             'nvim-telescope/telescope.nvim',
             branch = '0.1.x',
             dependencies = { 'nvim-lua/plenary.nvim' }
+        },
+        { 
+          'martineausimon/nvim-lilypond-suite',
+          config = function()
+            require('nvls').setup({
+              -- edit config here (see "Customize default settings" in wiki)
+            })
+          end
         },
         -- COLORSCHEMES (Uncomment only one at a time!):
         --[[{
