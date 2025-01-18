@@ -26,3 +26,6 @@ Install the Ruff LSP for Python development or install clangd for C/C++ developm
 
 Run NeoVim by `nvim`!
 
+If the tree-sitter CLI tool can not be installed,
+make sure that you have installed npm and the npm packages
+are getting installed to a location included in the PATH environment variable.

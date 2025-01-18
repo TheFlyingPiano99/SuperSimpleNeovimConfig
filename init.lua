@@ -43,3 +43,15 @@ vim.g.mapleader = " "       -- Leader key is space
 -- LAZY
 require("config.lazy")
 require("config.remap")
+
+
+-- Transparent background:
+-- (Comment out in case you don't want it!)
+vim.cmd [[
+  hi Normal guibg=NONE ctermbg=NONE
+  hi NonText guibg=NONE ctermbg=NONE
+  hi LineNr guibg=NONE ctermbg=NONE
+  hi SignColumn guibg=NONE ctermbg=NONE
+  hi EndOfBuffer guibg=NONE ctermbg=NONE
+]]
+
