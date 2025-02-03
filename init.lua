@@ -40,10 +40,13 @@ vim.g.mapleader = " "       -- Leader key is space
 
 ---------------------------------------------
 
+
 -- LAZY
 require("config.lazy")
 require("config.remap")
 
+
+---------------------------------------------
 
 -- Transparent background:
 -- (Comment out in case you don't want it!)
