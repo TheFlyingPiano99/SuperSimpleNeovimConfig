@@ -92,14 +92,6 @@ require("lazy").setup({
             branch = '0.1.x',
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
-        { 
-          'martineausimon/nvim-lilypond-suite',
-          config = function()
-            require('nvls').setup({
-              -- edit config here (see "Customize default settings" in wiki)
-            })
-          end
-        },
         -- COLORSCHEMES (Uncomment only one at a time!):
         --[[{
             "catppuccin/nvim",
