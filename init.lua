@@ -31,6 +31,7 @@ set.expandtab = true        -- Whether the tab key inserts spaces instead of a t
 set.smartindent = true      -- Syntax/style reactive indenting
 
 vim.opt.updatetime = 50     -- Fast update time
+vim.opt.shada = ""          -- Disable shared data (shada) files' usage
 
 vim.g.netrw_winsize = 20    -- This option controls the size of the window used by netrw when it opens 
 vim.g.netrw_banner = 1      -- Set netrw banner
