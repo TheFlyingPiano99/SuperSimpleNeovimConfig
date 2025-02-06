@@ -28,7 +28,7 @@ set.shiftwidth = 4          -- The number of spaces to use for each step of inde
 set.softtabstop = 4         -- The number of spaces that a tab character represents when editing text
 set.expandtab = true        -- Whether the tab key inserts spaces instead of a tab character.
                             -- When expandtab is enabled, pressing the tab key will insert a number of spaces equivalent to the tabstop value 
-set.smartindent = true      -- Syntax/style reactive indenting
+set.smartindent = false     -- Syntax/style reactive indenting
 
 vim.opt.updatetime = 50     -- Fast update time
 vim.opt.shada = ""          -- Disable shared data (shada) files' usage
