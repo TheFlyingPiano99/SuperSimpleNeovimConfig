@@ -28,7 +28,7 @@ set.shiftwidth = 4          -- The number of spaces to use for each step of inde
 set.softtabstop = 4         -- The number of spaces that a tab character represents when editing text
 set.expandtab = true        -- Whether the tab key inserts spaces instead of a tab character.
                             -- When expandtab is enabled, pressing the tab key will insert a number of spaces equivalent to the tabstop value 
-set.smartindent = true      -- Syntax/style reactive indenting
+set.smartindent = false     -- Syntax/style reactive indenting
 
 vim.opt.updatetime = 50     -- Fast update time
 vim.opt.shada = ""          -- Disable shared data (shada) files' usage
@@ -36,6 +36,8 @@ vim.opt.shada = ""          -- Disable shared data (shada) files' usage
 vim.g.netrw_winsize = 20    -- This option controls the size of the window used by netrw when it opens 
 vim.g.netrw_banner = 1      -- Set netrw banner
 vim.g.mapleader = " "       -- Leader key is space
+
+vim.o.termguicolors = true  -- Use 24 bit colors
 
 
 
@@ -53,9 +55,13 @@ require("config.remap")
 -- (Comment out in case you don't want it!)
 vim.cmd [[
   hi Normal guibg=NONE ctermbg=NONE
+  hi NormalNC guibg=NONE ctermbg=NONE
   hi NonText guibg=NONE ctermbg=NONE
   hi LineNr guibg=NONE ctermbg=NONE
   hi SignColumn guibg=NONE ctermbg=NONE
+  hi VertSplit guibg=NONE ctermbg=NONE
   hi EndOfBuffer guibg=NONE ctermbg=NONE
+  hi StatusLine guibg=NONE ctermbg=NONE
+  hi StatusLineNC guibg=NONE ctermbg=NONE
 ]]
 

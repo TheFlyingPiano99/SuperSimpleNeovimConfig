@@ -62,11 +62,13 @@ require("lazy").setup({
                 install_tree_sitter_cli()
 
                 require'nvim-treesitter.configs'.setup{
+                    auto_install = false,
                     ensure_installed = {
-                        "c", "cpp", "python", "rust", "lua", "vim", "vimdoc", "javascript", "html",
+                        "c", "cpp", "python", "rust", "lua", "vim", "vimdoc", "java", "kotlin", "javascript", "html",
                         "css", "markdown", "json", "xml", "yaml", "toml", "latex"
                     },
-                    highlight = {enable=true}
+                    highlight = {enable=true},
+                    indent = {enable=true}
                 }
             end
         },
