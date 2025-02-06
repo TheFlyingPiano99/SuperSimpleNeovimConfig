@@ -102,7 +102,7 @@ require("lazy").setup({
                 vim.cmd("colorscheme catppuccin")
             end
         },]]--
-        --[[{
+        {
             "folke/tokyonight.nvim",
             lazy = false,
             priority = 1000,
@@ -110,8 +110,8 @@ require("lazy").setup({
             config = function()
                 vim.cmd("colorscheme tokyonight")
             end
-        },]]--
-        {
+        },
+        --[[{
             "rebelot/kanagawa.nvim",
             name = "kanagawa",
             lazy = false,
@@ -119,7 +119,7 @@ require("lazy").setup({
             config = function()
                 vim.cmd("colorscheme kanagawa")
             end
-        },
+        },]]--
         --[[{ 
             "rose-pine/neovim",
             name = "rose-pine",
