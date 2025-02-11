@@ -22,6 +22,7 @@ set.termguicolors = true    -- Enable 24-bit RGB color
 set.scrolloff = 4           -- the minimum number of screen lines to keep above and below the cursor when scrolling through a buffer 
 set.number = true           -- Enable line numbering
 set.relativenumber = false  -- Absolute line numbering
+set.signcolumn = "no"       -- Remove the popping error and warning column from the left side of the window
 
 set.tabstop = 4             -- The number of spaces that a tab character represents. This setting affects how tabs are displayed in the editor 
 set.shiftwidth = 4          -- The number of spaces to use for each step of indentation 

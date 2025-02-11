@@ -94,6 +94,67 @@ require("lazy").setup({
             branch = '0.1.x',
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
+        {
+            "L3MON4D3/LuaSnip",
+            dependencies = { "rafamadriz/friendly-snippets" },
+            config = function()
+                require("luasnip.loaders.from_vscode").lazy_load()
+            end,
+        },
+        {
+            "hrsh7th/nvim-cmp",  -- For autocomplition
+            event = "InsertEnter",  -- Only load nvim-cmp when entering insert mode
+
+            dependencies = {
+                "hrsh7th/cmp-nvim-lsp",   -- LSP source for nvim-cmp
+                "hrsh7th/cmp-path",       -- Path source for nvim-cmp
+                "L3MON4D3/LuaSnip",       -- Snippet engine, needed if using snippets
+                "saadparwaiz1/cmp_luasnip",  -- LuaSnip integration for nvim-cmp
+            },
+            config = function()
+                local cmp = require('cmp')
+
+                cmp.setup({
+                    completion = {
+                        keyword_length = 5,  -- Set minimum characters to trigger completion
+                        max_item_count = 8, 
+                        completeopt = 'menu,menuone,noinsert',  -- Menu settings
+                    },
+                    -- Key mappings
+                    mapping = {
+                        ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Confirm selection with Ente
+                        ['<C-j>'] = cmp.mapping.select_next_item(),
+                        ['<C-k>'] = cmp.mapping.select_prev_item(),
+                        ['<C-f>'] = cmp.mapping.scroll_docs(4),  -- Scroll down documentation
+                        ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Scroll up documentation
+                    },
+                    -- Completion sources
+                    sources = {
+                        {
+                            name = 'nvim_lsp',
+                            keyword_length = 4,
+                            max_item_count = 4,
+                        },
+                        { 
+                            name = 'path',
+                            keyword_length = 4,
+                            max_item_count = 4,
+                        },
+                        { 
+                            name = 'luasnip',
+                            keyword_length = 2,
+                            max_item_count = 8
+                        },
+                    },
+                    -- Snippet integration
+                    snippet = {
+                        expand = function(args)
+                            require('luasnip').lsp_expand(args.body)  -- Expand snippets
+                        end,
+                    },
+                })
+            end,
+        },
         -- COLORSCHEMES (Uncomment only one at a time!):
         --[[{
             "catppuccin/nvim",
@@ -103,7 +164,7 @@ require("lazy").setup({
             config = function()
                 vim.cmd("colorscheme catppuccin")
             end
-        },]]--
+        },]]
         {
             "folke/tokyonight.nvim",
             lazy = false,
@@ -121,14 +182,14 @@ require("lazy").setup({
             config = function()
                 vim.cmd("colorscheme kanagawa")
             end
-        },]]--
+        },]]
         --[[{ 
             "rose-pine/neovim",
             name = "rose-pine",
             config = function()
                 vim.cmd("colorscheme rose-pine")
             end
-        },]]--
+        },]]
     },
     -- automatically check for plugin updates:
     checker = { enabled = true },
