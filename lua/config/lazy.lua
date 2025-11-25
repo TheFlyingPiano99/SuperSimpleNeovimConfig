@@ -96,6 +96,7 @@ require("lazy").setup({
         },
         {
             "L3MON4D3/LuaSnip",
+            build = "make install_jsregexp",
             dependencies = { "rafamadriz/friendly-snippets" },
             config = function()
                 require("luasnip.loaders.from_vscode").lazy_load()
@@ -116,7 +117,7 @@ require("lazy").setup({
 
                 cmp.setup({
                     completion = {
-                        keyword_length = 5,  -- Set minimum characters to trigger completion
+                        keyword_length = 2,  -- Set minimum characters to trigger completion
                         max_item_count = 8, 
                         completeopt = 'menu,menuone,noinsert',  -- Menu settings
                     },
@@ -155,6 +156,12 @@ require("lazy").setup({
                 })
             end,
         },
+		{
+		    'chomosuke/typst-preview.nvim',
+		    ft = 'typst',
+		    version = '1.*',
+		    opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+		},
         -- COLORSCHEMES (Uncomment only one at a time!):
         --[[{
             "catppuccin/nvim",
@@ -195,4 +202,3 @@ require("lazy").setup({
     checker = { enabled = true },
     -- Configure any other settings here. See the documentation for more details.
 })
-
