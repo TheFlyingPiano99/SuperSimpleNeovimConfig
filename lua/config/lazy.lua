@@ -2,7 +2,9 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    local out = vim.fn.system({
+        "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath
+    })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
@@ -15,85 +17,59 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
+-- Leaders
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
+-- =====================================================================
+-- Lazy.nvim setup
+-- =====================================================================
+
 require("lazy").setup({
     spec = {
+
+        -- ========================
+        -- Treesitter
+        -- ========================
         {
-            'nvim-treesitter/nvim-treesitter',
+            "nvim-treesitter/nvim-treesitter",
             lazy = false,
+            build = ":TSUpdate",
             config = function()
-                local function install_tree_sitter_cli()
-                    local handle = io.popen("tree-sitter --version")
-                    local result = handle:read("*a")
-                    handle:close()
-
-                    if result == "" then
-                        print("tree-sitter-cli not found. Installing...")
-
-                        -- Define the installation command for your system
-                        -- For example, using npm:
-                        local install_cmd = "npm install -g tree-sitter-cli"
-
-                        -- Run the command
-                        os.execute(install_cmd)
-
-                        -- Verify installation
-                        handle = io.popen("tree-sitter --version")
-                        result = handle:read("*a")
-                        handle:close()
-
-                        if result == "" then
-                            print("Failed to install tree-sitter-cli.")
-                        else
-                            print("tree-sitter-cli installed successfully.")
-                        end
-                    else
-                        --print("tree-sitter-cli is already installed: " .. result)
-                    end
-                end
-
-                -- Call the function during startup
-                install_tree_sitter_cli()
-
-                require'nvim-treesitter.configs'.setup{
+                require("nvim-treesitter.configs").setup({
                     auto_install = false,
                     ensure_installed = {
-                        "c", "cpp", "cmake", "glsl", "python", "rust", "lua", "vim", "vimdoc", "java", "kotlin", "javascript", "html",
-                        "css", "markdown", "json", "xml", "yaml", "toml", "latex"
+                        "c", "cpp", "cmake", "glsl", "python", "rust",
+                        "lua", "vim", "vimdoc", "java", "kotlin",
+                        "javascript", "html", "css", "markdown",
+                        "json", "xml", "yaml", "toml", "latex",
                     },
-                    highlight = {enable=true},
-                    indent = {enable=true}
-                }
-            end
-        },
-        {
-            "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
-            lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
-            config = function()
-                local lsp = require('lspconfig')
-                -- Python:
-                -- IMPORTANT: Ruff v5.3 (or higher version) must be installed separately!
-                lsp.ruff.setup{
-                    -- Ruff language server settings go here
-                    configurationPreference = "filesystemFirst"
-                }
-
-                -- C/C++:
-                -- IMPORTANT: clangd must be installed separately!
-                lsp.clangd.setup{}
+                    highlight = { enable = true },
+                    indent = { enable = true },
+                })
             end,
         },
+
+        -- ========================
+        -- LSP (Neovim 0.11+)
+        -- ========================
         {
-            'nvim-telescope/telescope.nvim',
-            branch = '0.1.x',
-            dependencies = { 'nvim-lua/plenary.nvim' }
+            "neovim/nvim-lspconfig",
+            lazy = false,
         },
+
+        -- ========================
+        -- Telescope
+        -- ========================
+        {
+            "nvim-telescope/telescope.nvim",
+            branch = "0.1.x",
+            dependencies = { "nvim-lua/plenary.nvim" },
+        },
+
+        -- ========================
+        -- Snippets
+        -- ========================
         {
             "L3MON4D3/LuaSnip",
             build = "make install_jsregexp",
@@ -102,103 +78,88 @@ require("lazy").setup({
                 require("luasnip.loaders.from_vscode").lazy_load()
             end,
         },
-        {
-            "hrsh7th/nvim-cmp",  -- For autocomplition
-            event = "InsertEnter",  -- Only load nvim-cmp when entering insert mode
 
+        -- ========================
+        -- Completion
+        -- ========================
+        {
+            "hrsh7th/nvim-cmp",
+            event = "InsertEnter",
             dependencies = {
-                "hrsh7th/cmp-nvim-lsp",   -- LSP source for nvim-cmp
-                "hrsh7th/cmp-path",       -- Path source for nvim-cmp
-                "L3MON4D3/LuaSnip",       -- Snippet engine, needed if using snippets
-                "saadparwaiz1/cmp_luasnip",  -- LuaSnip integration for nvim-cmp
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-path",
+                "L3MON4D3/LuaSnip",
+                "saadparwaiz1/cmp_luasnip",
             },
             config = function()
-                local cmp = require('cmp')
+                local cmp = require("cmp")
 
                 cmp.setup({
                     completion = {
-                        keyword_length = 2,  -- Set minimum characters to trigger completion
-                        max_item_count = 8, 
-                        completeopt = 'menu,menuone,noinsert',  -- Menu settings
+                        keyword_length = 2,
+                        max_item_count = 8,
+                        completeopt = "menu,menuone,noinsert",
                     },
-                    -- Key mappings
                     mapping = {
-                        ['<CR>'] = cmp.mapping.confirm({ select = true }),  -- Confirm selection with Ente
-                        ['<C-j>'] = cmp.mapping.select_next_item(),
-                        ['<C-k>'] = cmp.mapping.select_prev_item(),
-                        ['<C-f>'] = cmp.mapping.scroll_docs(4),  -- Scroll down documentation
-                        ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Scroll up documentation
+                        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                        ["<C-j>"] = cmp.mapping.select_next_item(),
+                        ["<C-k>"] = cmp.mapping.select_prev_item(),
+                        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     },
-                    -- Completion sources
                     sources = {
-                        {
-                            name = 'nvim_lsp',
-                            keyword_length = 4,
-                            max_item_count = 4,
-                        },
-                        { 
-                            name = 'path',
-                            keyword_length = 4,
-                            max_item_count = 4,
-                        },
-                        { 
-                            name = 'luasnip',
-                            keyword_length = 2,
-                            max_item_count = 8
-                        },
+                        { name = "nvim_lsp", keyword_length = 4, max_item_count = 4 },
+                        { name = "path",     keyword_length = 4, max_item_count = 4 },
+                        { name = "luasnip",  keyword_length = 2, max_item_count = 8 },
                     },
-                    -- Snippet integration
                     snippet = {
                         expand = function(args)
-                            require('luasnip').lsp_expand(args.body)  -- Expand snippets
+                            require("luasnip").lsp_expand(args.body)
                         end,
                     },
                 })
             end,
         },
-		{
-		    'chomosuke/typst-preview.nvim',
-		    ft = 'typst',
-		    version = '1.*',
-		    opts = {}, -- lazy.nvim will implicitly calls `setup {}`
-		},
-        -- COLORSCHEMES (Uncomment only one at a time!):
-        --[[{
-            "catppuccin/nvim",
-            name = "catppuccin",
-            lazy = false,
-            priority = 1000,
-            config = function()
-                vim.cmd("colorscheme catppuccin")
-            end
-        },]]
+
+        -- ========================
+        -- Typst
+        -- ========================
+        {
+            "chomosuke/typst-preview.nvim",
+            ft = "typst",
+            version = "1.*",
+            opts = {},
+        },
+
+        -- ========================
+        -- Colorscheme
+        -- ========================
         {
             "folke/tokyonight.nvim",
             lazy = false,
             priority = 1000,
-            opts = {},
             config = function()
-                vim.cmd("colorscheme tokyonight")
-            end
+                vim.cmd.colorscheme("tokyonight")
+            end,
         },
-        --[[{
-            "rebelot/kanagawa.nvim",
-            name = "kanagawa",
-            lazy = false,
-            priority = 1000,
-            config = function()
-                vim.cmd("colorscheme kanagawa")
-            end
-        },]]
-        --[[{ 
-            "rose-pine/neovim",
-            name = "rose-pine",
-            config = function()
-                vim.cmd("colorscheme rose-pine")
-            end
-        },]]
     },
-    -- automatically check for plugin updates:
+
     checker = { enabled = true },
-    -- Configure any other settings here. See the documentation for more details.
 })
+
+-- =====================================================================
+-- Native LSP configuration (Neovim 0.11+)
+-- =====================================================================
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+vim.lsp.config.ruff = {
+    capabilities = capabilities,
+    configurationPreference = "filesystemFirst",
+}
+
+vim.lsp.config.clangd = {
+    capabilities = capabilities,
+}
+
+vim.lsp.enable({ "ruff", "clangd" })
