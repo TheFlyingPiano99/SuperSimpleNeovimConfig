@@ -36,7 +36,7 @@ require("lazy").setup({
             lazy = false,
             build = ":TSUpdate",
             config = function()
-                require("nvim-treesitter.configs").setup({
+                require("nvim-treesitter.config").setup({
                     auto_install = false,
                     ensure_installed = {
                         "c", "cpp", "cmake", "glsl", "python", "rust",
