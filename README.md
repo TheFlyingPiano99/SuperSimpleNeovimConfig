@@ -1,5 +1,5 @@
-# SuperSimpleNeoVimConfig
-A super simple NeoVim configuration focused on basic text editing with syntax highlighting supporting a range of common languages.
+# SuperSimpleNeovimConfig
+A super simple Neovim configuration focused on basic text editing with syntax highlighting supporting a range of common languages.
 
 ## List of the supported languages by default
 
@@ -24,7 +24,7 @@ Clone the content of this repository to `~/.config/nvim/` (on Linux or MacOS) or
 
 Install the Ruff LSP for Python development or install clangd for C/C++ development!
 
-Run NeoVim by `nvim`!
+Run Neovim by `nvim`!
 
 If the tree-sitter CLI tool can not be installed,
 make sure that you have installed npm and the npm packages
