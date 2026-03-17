@@ -1,14 +1,31 @@
 # SuperSimpleNeovimConfig
-A super simple Neovim configuration focused on basic text editing with syntax highlighting supporting a range of common languages.
+A simple Neovim configuration focused on basic text editing with syntax highlighting supporting a range of common languages.
 
-## List of the supported languages by default
+## Used plugins
+
+- folke/lazy.nvim
+- nvim-treesitter/nvim-treesitter
+- neovim/nvim-lspconfig
+- L3MON4D3/LuaSnip
+- hrsh7th/nvim-cmp
+- chomosuke/typst-preview.nvim
+- folke/tokyonight.nvim
+
+
+## List of supported syntaxes
 
 - c
 - cpp
+- rust
+- cmake
+- glsl
 - python
+- rust
 - lua
 - vim
 - vimdoc
+- java
+- kotlin
 - javascript
 - html
 - css
@@ -19,7 +36,9 @@ A super simple Neovim configuration focused on basic text editing with syntax hi
 - toml
 - latex
 
+
 # Installation
+
 Clone the content of this repository to `~/.config/nvim/` (on Linux or MacOS) or to `~/AppData/Local/nvim/` (on Windows)!
 
 Install the Ruff LSP for Python development or install clangd for C/C++ development!

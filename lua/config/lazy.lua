@@ -39,7 +39,7 @@ require("lazy").setup({
                 require("nvim-treesitter").setup({
                     auto_install = false,
                     ensure_installed = {
-                        "c", "cpp", "cmake", "glsl", "python", "rust",
+                        "c", "cpp", "rust", "cmake", "glsl", "python", "rust",
                         "lua", "vim", "vimdoc", "java", "kotlin",
                         "javascript", "html", "css", "markdown",
                         "json", "xml", "yaml", "toml", "latex",
