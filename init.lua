@@ -45,8 +45,8 @@ vim.o.termguicolors = true  -- Use 24 bit colors
 ---------------------------------------------
 
 
--- LAZY
-require("config.lazy")
+-- PLUGINS (vim.pack)
+require("config.pack")
 require("config.remap")
 
 

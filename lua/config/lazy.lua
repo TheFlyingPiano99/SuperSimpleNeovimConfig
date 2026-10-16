@@ -14,8 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         vim.fn.getchar()
         os.exit(1)
     end
-end
-vim.opt.rtp:prepend(lazypath)
 
 -- Leaders
 vim.g.mapleader = " "
@@ -39,7 +37,7 @@ require("lazy").setup({
                 require("nvim-treesitter").setup({
                     auto_install = false,
                     ensure_installed = {
-                        "c", "cpp", "rust", "cmake", "glsl", "python", "rust",
+                        "c", "cpp", "cmake", "glsl", "python", "rust",
                         "lua", "vim", "vimdoc", "java", "kotlin",
                         "javascript", "html", "css", "markdown",
                         "json", "xml", "yaml", "toml", "latex",
