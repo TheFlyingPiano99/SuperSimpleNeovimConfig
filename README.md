@@ -3,7 +3,6 @@ A simple Neovim configuration focused on basic text editing with syntax highligh
 
 ## Used plugins
 
-- folke/lazy.nvim
 - nvim-treesitter/nvim-treesitter
 - neovim/nvim-lspconfig
 - L3MON4D3/LuaSnip
