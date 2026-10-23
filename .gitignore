@@ -44,3 +44,8 @@ luac.out
 *lazy-lock.json
 *pack-lock.json
 package.json
+package-lock.json
+
+# Copilot files
+copilot.vim
+
